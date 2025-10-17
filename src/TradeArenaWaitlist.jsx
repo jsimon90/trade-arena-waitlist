@@ -1,33 +1,90 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle, Star, TrendingUp, Users, Zap } from 'lucide-react';
+import { ArrowRight, CheckCircle, Star, TrendingUp, Users, Zap, MessageSquare, Copy, Share2 } from 'lucide-react';
+import { supabase } from './supabase';
+import Feedback from './Feedback';
 
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/movkrypd";
+const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT;
 
 export default function TradeArenaWaitlist() {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [refCode, setRefCode] = useState('');
+  const [copied, setCopied] = useState(false);
+  const [error, setError] = useState('');
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [referredBy, setReferredBy] = useState(null);
+
+  // Check for referral code on component mount
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const ref = urlParams.get('ref');
+    if (ref) {
+      setReferredBy(ref);
+      localStorage.setItem('ta_ref', ref);
+    } else {
+      const storedRef = localStorage.getItem('ta_ref');
+      if (storedRef) {
+        setReferredBy(storedRef);
+      }
+    }
+  }, []);
+
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setCopied(false);
+
+    if (!validateEmail(email)) {
+      setError('Please enter a valid email.');
+      return;
+    }
+
     setIsLoading(true);
-    
     try {
-      const response = await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
-      
-      if (response.ok) {
-        setIsSubmitted(true);
-        setEmail('');
+      // 1) Insert into Supabase (source of truth)
+      const { data, error } = await supabase
+        .from('waitlist')
+        .insert({ email, referred_by: referredBy })
+        .select('ref_code')
+        .single();
+
+      if (error) throw error;
+
+      const myRef = data.ref_code;
+      setRefCode(myRef);
+      setIsSubmitted(true);
+
+      // 2) Notify Formspree so you get an email ping
+      try {
+        await fetch(FORMSPREE_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            email,
+            referredBy,
+            source: 'waitlist',
+            ref_code_assigned: myRef,
+          }),
+        });
+      } catch {
+        // non-fatal: even if Formspree fails, we already saved in Supabase
       }
-    } catch (error) {
-      console.error('Error submitting form:', error);
+
+      // 3) Build & copy share link
+      const link = `${window.location.origin}?ref=${myRef}`;
+      try {
+        await navigator.clipboard.writeText(link);
+        setCopied(true);
+      } catch {}
+    } catch (err) {
+      setError(err.message || 'Something went wrong.');
     } finally {
       setIsLoading(false);
     }
@@ -54,7 +111,7 @@ export default function TradeArenaWaitlist() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Background Pattern */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%239C92AC%22%20fill-opacity%3D%220.05%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
       
       <div className="relative z-10 container mx-auto px-4 py-16">
         {/* Header */}
@@ -133,6 +190,9 @@ export default function TradeArenaWaitlist() {
                     required
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
                   />
+                  {error && (
+                    <p className="text-red-400 text-sm mt-2">{error}</p>
+                  )}
                 </div>
                 
                 <button
@@ -165,12 +225,48 @@ export default function TradeArenaWaitlist() {
               <p className="text-gray-300 mb-6">
                 Thank you for joining our waitlist. We'll notify you as soon as Trade Arena is ready.
               </p>
-              <button
-                onClick={() => setIsSubmitted(false)}
-                className="text-purple-400 hover:text-purple-300 transition-colors duration-300"
-              >
-                Add another email
-              </button>
+              
+              {refCode && (
+                <div className="bg-white/10 rounded-lg p-4 mb-6">
+                  <p className="text-sm text-gray-300 mb-3">Your referral code:</p>
+                  <div className="flex items-center gap-2 justify-center">
+                    <code className="bg-black/20 px-3 py-1 rounded text-purple-300 font-mono">
+                      {refCode}
+                    </code>
+                    <button
+                      onClick={() => {
+                        const link = `${window.location.origin}?ref=${refCode}`;
+                        navigator.clipboard.writeText(link);
+                        setCopied(true);
+                        setTimeout(() => setCopied(false), 2000);
+                      }}
+                      className="text-purple-400 hover:text-purple-300 transition-colors"
+                    >
+                      {copied ? <CheckCircle className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                    </button>
+                  </div>
+                  <p className="text-xs text-gray-400 mt-2">
+                    Share your link to earn referral bonuses!
+                  </p>
+                </div>
+              )}
+              
+              <div className="flex gap-3 justify-center">
+                <button
+                  onClick={() => setIsSubmitted(false)}
+                  className="text-purple-400 hover:text-purple-300 transition-colors duration-300"
+                >
+                  Add another email
+                </button>
+                <span className="text-gray-500">•</span>
+                <button
+                  onClick={() => setShowFeedback(true)}
+                  className="text-purple-400 hover:text-purple-300 transition-colors duration-300 flex items-center gap-1"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  Feedback
+                </button>
+              </div>
             </motion.div>
           )}
         </motion.div>
@@ -186,7 +282,21 @@ export default function TradeArenaWaitlist() {
             © 2024 Trade Arena. All rights reserved.
           </p>
         </motion.div>
+
+        {/* Feedback Button */}
+        <motion.button
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 1 }}
+          onClick={() => setShowFeedback(true)}
+          className="fixed bottom-6 right-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40"
+        >
+          <MessageSquare className="w-5 h-5" />
+        </motion.button>
       </div>
+
+      {/* Feedback Modal */}
+      <Feedback isOpen={showFeedback} onClose={() => setShowFeedback(false)} />
     </div>
   );
 }
