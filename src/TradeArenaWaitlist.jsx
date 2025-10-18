@@ -294,6 +294,7 @@ export default function TradeArenaWaitlist() {
 
         </motion.div>
 
+
         {/* Waitlist Form - Moved to Top */}
         <motion.div
           id="join"
@@ -400,6 +401,41 @@ export default function TradeArenaWaitlist() {
                       <span>⚠</span> {error}
                     </motion.p>
                   )}
+                </div>
+
+                <div>
+                  <input
+                    type="text"
+                    value={referredBy || ''}
+                    onChange={(e) => setReferredBy(e.target.value)}
+                    placeholder="Referral code (optional) - Enter someone's code if they referred you"
+                    className="w-full px-6 py-4 bg-white/10 border border-white/30 rounded-xl text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 transition-all duration-300 text-lg"
+                    style={{
+                      width: '100%',
+                      padding: '1rem 1.5rem',
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                      border: '1px solid rgba(255, 255, 255, 0.3)',
+                      borderRadius: '0.75rem',
+                      color: 'white',
+                      fontSize: '1.125rem',
+                      outline: 'none',
+                      transition: 'all 0.3s ease',
+                      backdropFilter: 'blur(10px)'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#22d3ee';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(34, 211, 238, 0.25)';
+                      e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                      e.target.style.boxShadow = 'none';
+                      e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                    }}
+                  />
+                  <p className="text-blue-200 text-xs mt-2">
+                    Got referred? Enter their referral code to help them earn rewards!
+                  </p>
                 </div>
                 
                 <motion.button
@@ -525,25 +561,92 @@ export default function TradeArenaWaitlist() {
                 </div>
               )}
               
-              <div className="flex items-center justify-center gap-4 text-sm">
-                <button
-                  onClick={() => setIsSubmitted(false)}
-                  className="text-sky-400 hover:text-sky-300 transition-colors duration-300"
-                >
-                  Add another email
-                </button>
-                <span className="text-gray-500">•</span>
-                <button
-                  onClick={() => setShowFeedback(true)}
-                  className="text-sky-400 hover:text-sky-300 transition-colors duration-300 flex items-center gap-1"
-                >
-                  <MessageSquare className="w-4 h-4" />
-                  Feedback
-                </button>
-              </div>
               </motion.div>
             </motion.div>
           )}
+        </motion.div>
+
+        {/* Referral Rewards Banner & Personal Referral Form */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="max-w-4xl mx-auto mb-16"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Referral Rewards Banner */}
+            <div 
+              className="bg-gradient-to-br from-yellow-500/20 to-orange-500/20 backdrop-blur-xl border border-yellow-400/30 rounded-3xl p-6 shadow-2xl shadow-yellow-500/20"
+              style={{
+                background: 'linear-gradient(135deg, rgba(234, 179, 8, 0.15) 0%, rgba(249, 115, 22, 0.15) 100%)',
+                backdropFilter: 'blur(25px)',
+                border: '1px solid rgba(234, 179, 8, 0.4)',
+                borderRadius: '1.5rem',
+                padding: '1.5rem',
+                boxShadow: '0 25px 50px -12px rgba(234, 179, 8, 0.2)'
+              }}
+            >
+              <h3 className="text-yellow-200 text-xl font-bold mb-4 text-center">Early Bird Rewards</h3>
+              <ul className="text-yellow-100 text-sm space-y-2">
+                <li>• Top 10 referrers get FREE practice subscription ($15/month value)</li>
+                <li>• 10 random signups win FREE practice for 1 month</li>
+                <li>• Share your referral link to compete!</li>
+              </ul>
+            </div>
+
+            {/* Personal Referral Form */}
+            <div 
+              className="bg-gradient-to-br from-indigo-500/20 to-purple-500/20 backdrop-blur-xl border border-indigo-400/30 rounded-3xl p-6 shadow-2xl shadow-indigo-500/20"
+              style={{
+                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(147, 51, 234, 0.15) 100%)',
+                backdropFilter: 'blur(25px)',
+                border: '1px solid rgba(99, 102, 241, 0.4)',
+                borderRadius: '1.5rem',
+                padding: '1.5rem',
+                boxShadow: '0 25px 50px -12px rgba(99, 102, 241, 0.2)'
+              }}
+            >
+              <h3 className="text-indigo-200 text-xl font-bold mb-4 text-center">Your Referral Link</h3>
+              {refCode ? (
+                <div className="space-y-4">
+                  <div className="bg-white/10 rounded-lg p-3">
+                    <p className="text-indigo-200 text-sm mb-2">Share this link to earn rewards:</p>
+                    <div className="flex items-center gap-2">
+                      <code className="bg-black/20 px-3 py-2 rounded text-indigo-300 font-mono text-sm flex-1 break-all">
+                        {window.location.origin}?ref={refCode}
+                      </code>
+                      <button
+                        onClick={() => {
+                          const link = `${window.location.origin}?ref=${refCode}`;
+                          navigator.clipboard.writeText(link);
+                          setCopied(true);
+                          setTimeout(() => setCopied(false), 2000);
+                        }}
+                        className="text-indigo-400 hover:text-indigo-300 transition-colors p-2"
+                        title="Copy to clipboard"
+                      >
+                        {copied ? <CheckCircle className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
+                      </button>
+                    </div>
+                  </div>
+                  <p className="text-indigo-100 text-xs text-center">
+                    Every successful referral moves you up the leaderboard!
+                  </p>
+                </div>
+              ) : (
+                <div className="text-center">
+                  <p className="text-indigo-200 text-sm mb-4">
+                    Sign up above to get your personal referral link
+                  </p>
+                  <div className="bg-white/10 rounded-lg p-4">
+                    <p className="text-indigo-100 text-xs">
+                      Your referral code will appear here after you join the waitlist
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </motion.div>
 
         {/* All Content in 3-Column Grid */}
