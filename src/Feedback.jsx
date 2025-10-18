@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { MessageSquare, Star, X } from 'lucide-react';
-import { supabase } from './supabase';
+import { supabase } from './lib/supabase';
 
 const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT;
 
@@ -17,12 +17,18 @@ export default function Feedback({ isOpen, onClose }) {
     setIsLoading(true);
 
     try {
-      // Save to Supabase
-      const { error } = await supabase
-        .from('feedback')
-        .insert({ email, message, rating });
+      // Check if Supabase is properly configured
+      const isSupabaseConfigured = import.meta.env.VITE_SUPABASE_URL && 
+        import.meta.env.VITE_SUPABASE_URL !== 'https://placeholder.supabase.co';
 
-      if (error) throw error;
+      if (isSupabaseConfigured) {
+        // Save to Supabase
+        const { error } = await supabase
+          .from('feedback')
+          .insert({ email, message, rating });
+
+        if (error) throw error;
+      }
 
       // Notify Formspree (optional)
       try {
@@ -70,7 +76,7 @@ export default function Feedback({ isOpen, onClose }) {
         {!isSubmitted ? (
           <>
             <div className="flex items-center gap-2 mb-4">
-              <MessageSquare className="w-5 h-5 text-purple-400" />
+              <MessageSquare className="w-5 h-5 text-sky-400" />
               <h3 className="text-xl font-semibold text-white">Share Feedback</h3>
             </div>
 
@@ -81,7 +87,7 @@ export default function Feedback({ isOpen, onClose }) {
                   placeholder="your@email.com (optional)"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-lg px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                  className="w-full rounded-lg px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-300"
                 />
               </div>
 
@@ -92,7 +98,7 @@ export default function Feedback({ isOpen, onClose }) {
                   onChange={(e) => setMessage(e.target.value)}
                   required
                   rows={4}
-                  className="w-full rounded-lg px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 resize-none"
+                  className="w-full rounded-lg px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-300 resize-none"
                 />
               </div>
 
@@ -101,7 +107,7 @@ export default function Feedback({ isOpen, onClose }) {
                 <select
                   value={rating}
                   onChange={(e) => setRating(Number(e.target.value))}
-                  className="w-full rounded-lg px-4 py-3 bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                  className="w-full rounded-lg px-4 py-3 bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-300"
                 >
                   {[5, 4, 3, 2, 1].map(n => (
                     <option key={n} value={n} className="bg-slate-800">
@@ -114,7 +120,7 @@ export default function Feedback({ isOpen, onClose }) {
               <button
                 type="submit"
                 disabled={isLoading || !message.trim()}
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
               >
                 {isLoading ? (
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -138,7 +144,7 @@ export default function Feedback({ isOpen, onClose }) {
             </p>
             <button
               onClick={onClose}
-              className="text-purple-400 hover:text-purple-300 transition-colors"
+              className="text-sky-400 hover:text-sky-300 transition-colors"
             >
               Close
             </button>
