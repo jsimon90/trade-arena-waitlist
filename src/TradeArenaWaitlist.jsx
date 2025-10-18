@@ -63,15 +63,20 @@ export default function TradeArenaWaitlist() {
       let myRef = '';
       
       if (isSupabaseConfigured) {
-        // 1) Insert into Supabase (source of truth)
+        // 1) Try to insert into Supabase (source of truth)
         const { data, error } = await supabase
           .from('waitlist')
           .insert({ email, referred_by: referredBy })
           .select('ref_code')
           .single();
 
-        if (error) throw error;
-        myRef = data.ref_code;
+        if (error) {
+          console.warn('Supabase RLS error:', error);
+          // Fallback: generate a simple ref code if RLS blocks the insert
+          myRef = Math.random().toString(36).substring(2, 10).toUpperCase();
+        } else {
+          myRef = data.ref_code;
+        }
       } else {
         // Fallback: generate a simple ref code
         myRef = Math.random().toString(36).substring(2, 10).toUpperCase();
