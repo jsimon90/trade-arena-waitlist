@@ -587,7 +587,7 @@ export default function TradeArenaWaitlist() {
               }}
             >
               <h3 className="text-yellow-200 text-xl font-bold mb-4 text-center">Early Bird Rewards</h3>
-              <ul className="text-yellow-100 text-sm space-y-2">
+              <ul className="text-yellow-100 text-sm space-y-3">
                 <li>• Top 10 referrers get FREE practice subscription ($15/month value)</li>
                 <li>• 10 random signups win FREE practice for 1 month</li>
                 <li>• Share your referral link to compete!</li>
@@ -654,11 +654,11 @@ export default function TradeArenaWaitlist() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="grid grid-cols-3 gap-8 mb-16 text-white"
+          className="grid grid-cols-3 gap-12 mb-16 text-white"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '2rem',
+            gap: '3rem',
             marginBottom: '4rem',
             color: 'white'
           }}
@@ -676,7 +676,7 @@ export default function TradeArenaWaitlist() {
           >
             <h3 className="text-white text-4xl font-bold mb-6 text-center">Head-to-Head Matches</h3>
             <div className="space-y-3">
-              <ul className="text-blue-100 text-sm space-y-2">
+              <ul className="text-blue-100 text-sm space-y-3">
                 <li>• Jump into live 1v1 trading battles using real-time market data</li>
                 <li>• Both players start with identical simulated balances</li>
                 <li>• When the timer ends, whoever has the higher P&L wins the match and the prize pool</li>
@@ -706,7 +706,7 @@ export default function TradeArenaWaitlist() {
           >
             <h3 className="text-white text-4xl font-bold mb-6 text-center">Tournaments</h3>
             <div>
-              <ul className="text-sky-100 text-sm space-y-2">
+              <ul className="text-sky-100 text-sm space-y-3">
                 <li>• Compete in bracket-style events with multiple rounds</li>
                 <li>• Advance by beating opponents, climb the rankings, and win larger prize pools</li>
                 <li>• Tournaments combine consistency, timing, and nerves — only the most skilled traders make it to the finals</li>
@@ -727,7 +727,7 @@ export default function TradeArenaWaitlist() {
           >
             <h3 className="text-white text-4xl font-bold mb-6 text-center">Practice Mode (Subscription)</h3>
             <div>
-              <ul className="text-emerald-100 text-sm space-y-2">
+              <ul className="text-emerald-100 text-sm space-y-3">
                 <li>• Unlock Practice Mode for $15/month to sharpen your edge</li>
                 <li>• Unlimited simulated trading with live market data</li>
                 <li>• Personal performance tracking</li>
@@ -751,7 +751,7 @@ export default function TradeArenaWaitlist() {
           >
             <h3 className="text-white text-4xl font-bold mb-6 text-center">Ranked Leaderboards</h3>
             <div>
-              <ul className="text-purple-100 text-sm space-y-2">
+              <ul className="text-purple-100 text-sm space-y-3">
                 <li>• All competitive activity feeds into the Ranked Leaderboard — your public trading résumé</li>
                 <li>• Tracks wins and win rate</li>
                 <li>• Tracks total profit across matches</li>
@@ -775,7 +775,7 @@ export default function TradeArenaWaitlist() {
           >
             <h3 className="text-white text-4xl font-bold mb-6 text-center">Rewards & Progression</h3>
             <div>
-              <ul className="text-yellow-100 text-sm space-y-2">
+              <ul className="text-yellow-100 text-sm space-y-3">
                 <li>• Trade Arena rewards skill, consistency, and community</li>
                 <li>• Weekly and seasonal prizes for top performers</li>
                 <li>• Referral bonuses — invite friends, climb the queue, and earn Arena Coins</li>
@@ -798,7 +798,7 @@ export default function TradeArenaWaitlist() {
           >
             <h3 className="text-white text-4xl font-bold mb-6 text-center">Fair, Transparent, Skill-Based</h3>
             <div>
-              <ul className="text-cyan-100 text-sm space-y-2">
+              <ul className="text-cyan-100 text-sm space-y-3">
                 <li>• All matches use simulated balances with live CME-licensed data — no hidden leverage, no broker execution</li>
                 <li>• Every trade and result is logged for transparency</li>
                 <li>• Outcomes are entirely skill-driven, not chance-based — like chess or poker with perfect records</li>
@@ -819,7 +819,7 @@ export default function TradeArenaWaitlist() {
           >
             <h3 className="text-white text-4xl font-bold mb-6 text-center">Socials</h3>
             <div>
-              <ul className="text-teal-100 text-sm space-y-2">
+              <ul className="text-teal-100 text-sm space-y-3">
                 <li>• Instagram: <a className="text-teal-300 hover:text-teal-200" href="#" target="_blank" rel="noreferrer">@tradearena</a></li>
                 <li>• X (Twitter): <a className="text-teal-300 hover:text-teal-200" href="#" target="_blank" rel="noreferrer">@TradeArenaApp</a></li>
                 <li>• Discord: <a className="text-teal-300 hover:text-teal-200" href="#" target="_blank" rel="noreferrer">Join the early testers</a></li>
