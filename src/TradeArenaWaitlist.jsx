@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle, Star, TrendingUp, Users, Zap, MessageSquare, Copy, Share2 } from 'lucide-react';
+import { ArrowRight, CheckCircle, Star, TrendingUp, Users, Zap, MessageSquare, Copy, Share2, Target, Trophy, Award, BarChart3, Gift, Shield, Activity, DollarSign, Clock, Users2, Crown, Medal } from 'lucide-react';
 import { supabase } from './lib/supabase';
 import Feedback from './Feedback';
 
@@ -180,15 +180,91 @@ export default function TradeArenaWaitlist() {
       className="min-h-screen relative overflow-hidden"
       style={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #0a0a0a 100%)',
+        background: 'linear-gradient(135deg, #000000 0%, #0a0a0a 15%, #1a1a1a 35%, #0d1117 55%, #1a1a1a 75%, #000000 100%)',
         color: 'white'
       }}
     >
-      {/* Animated background elements */}
+      {/* Trading Terminal Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-1/2 -left-40 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        {/* Market Data Overlay */}
+        <div className="absolute top-10 left-10 text-green-400 text-xs font-mono opacity-20">
+          <div>BTC/USD: $43,250.00 +2.45%</div>
+          <div>ETH/USD: $2,680.00 +1.23%</div>
+          <div>SPY: $445.67 +0.89%</div>
+        </div>
+        <div className="absolute top-10 right-10 text-red-400 text-xs font-mono opacity-20">
+          <div>NASDAQ: 14,532.45 -0.34%</div>
+          <div>DOW: 35,123.78 -0.12%</div>
+          <div>VIX: 18.45 +1.23%</div>
+        </div>
+        
+        {/* Trading Grid Pattern */}
+        <div className="absolute inset-0 opacity-8">
+          <svg width="100%" height="100%" className="absolute inset-0">
+            <defs>
+              <pattern id="tradingGrid" width="60" height="60" patternUnits="userSpaceOnUse">
+                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#00ff88" strokeWidth="0.5" opacity="0.3"/>
+                <circle cx="30" cy="30" r="1" fill="#00ff88" opacity="0.2"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#tradingGrid)" />
+          </svg>
+        </div>
+        
+        {/* Animated Market Indicators */}
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-green-500/8 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-1/2 -left-40 w-96 h-96 bg-red-500/8 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-yellow-500/6 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        {/* Trading Charts and Market Data */}
+        <div className="absolute top-20 left-10 w-32 h-20 opacity-15">
+          <svg viewBox="0 0 100 50" className="w-full h-full">
+            <polyline points="0,40 20,30 40,35 60,20 80,25 100,15" stroke="#00ff88" strokeWidth="2" fill="none"/>
+            <polyline points="0,45 15,35 30,40 45,25 60,30 75,20 90,25 100,20" stroke="#00ff88" strokeWidth="1" fill="none" opacity="0.6"/>
+          </svg>
+        </div>
+        <div className="absolute top-40 right-20 w-40 h-16 opacity-15">
+          <svg viewBox="0 0 100 50" className="w-full h-full">
+            <polyline points="0,35 25,20 50,30 75,10 100,25" stroke="#ff4444" strokeWidth="2" fill="none"/>
+            <polyline points="0,40 20,25 40,35 60,15 80,30 100,20" stroke="#ff4444" strokeWidth="1" fill="none" opacity="0.6"/>
+          </svg>
+        </div>
+        <div className="absolute bottom-20 left-1/4 w-48 h-12 opacity-12">
+          <svg viewBox="0 0 100 50" className="w-full h-full">
+            <polyline points="0,30 20,25 40,35 60,20 80,30 100,25" stroke="#ffaa00" strokeWidth="2" fill="none"/>
+            <polyline points="0,35 15,30 30,40 45,25 60,35 75,30 90,40 100,35" stroke="#ffaa00" strokeWidth="1" fill="none" opacity="0.6"/>
+          </svg>
+        </div>
+        {/* Trading Panels */}
+        <div className="absolute bottom-10 left-10 w-48 h-32 bg-black/20 border border-green-500/20 rounded-lg p-2 opacity-15">
+          <div className="text-green-400 text-xs font-mono mb-1">ORDER BOOK</div>
+          <div className="text-red-400 text-xs font-mono">43,250.00 | 1.2 BTC</div>
+          <div className="text-red-400 text-xs font-mono">43,249.50 | 0.8 BTC</div>
+          <div className="text-red-400 text-xs font-mono">43,249.00 | 2.1 BTC</div>
+          <div className="text-gray-400 text-xs font-mono">--- SPREAD ---</div>
+          <div className="text-green-400 text-xs font-mono">43,248.50 | 1.5 BTC</div>
+          <div className="text-green-400 text-xs font-mono">43,248.00 | 0.9 BTC</div>
+        </div>
+        
+        <div className="absolute bottom-10 right-10 w-40 h-24 bg-black/20 border border-blue-500/20 rounded-lg p-2 opacity-15">
+          <div className="text-blue-400 text-xs font-mono mb-1">POSITIONS</div>
+          <div className="text-green-400 text-xs font-mono">+$1,250.00</div>
+          <div className="text-red-400 text-xs font-mono">-$340.00</div>
+          <div className="text-yellow-400 text-xs font-mono">+$910.00</div>
+        </div>
+        
+        {/* Trading Terminal Lines */}
+        <div className="absolute top-0 left-0 w-full h-full opacity-5">
+          <svg width="100%" height="100%" className="absolute inset-0">
+            <defs>
+              <pattern id="terminalGrid" width="80" height="80" patternUnits="userSpaceOnUse">
+                <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#00ff88" strokeWidth="0.3"/>
+                <path d="M 40 0 L 40 80" fill="none" stroke="#00ff88" strokeWidth="0.2"/>
+                <path d="M 0 40 L 80 40" fill="none" stroke="#00ff88" strokeWidth="0.2"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#terminalGrid)" />
+          </svg>
+        </div>
       </div>
       {/* Background Pattern */}
       <div 
@@ -264,15 +340,12 @@ export default function TradeArenaWaitlist() {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Trade <span 
-              className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent"
+            <span className="font-mono text-white">TRADE</span> <span 
+              className="font-mono text-white"
               style={{
-                background: 'linear-gradient(135deg, #22d3ee 0%, #60a5fa 50%, #a855f7 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
+                color: 'white'
               }}
-            >Arena</span>
+            >ARENA</span>
           </motion.h1>
           
           <motion.div
@@ -281,13 +354,16 @@ export default function TradeArenaWaitlist() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <p className="text-2xl text-blue-100 mb-4 font-medium" style={{ fontSize: '1.5rem', color: '#dbeafe', lineHeight: '1.6', fontWeight: '500' }}>
+            <div className="text-lg text-green-400 mb-4 font-mono animate-pulse" style={{ fontSize: '1.125rem', color: '#4ade80', lineHeight: '1.6' }}>
+              [LIVE] MARKET BATTLEGROUND
+            </div>
+            <p className="text-2xl text-gray-200 mb-4 font-medium" style={{ fontSize: '1.5rem', color: '#e5e7eb', lineHeight: '1.6', fontWeight: '500' }}>
               Compete. Trade. Win.
             </p>
-            <p className="text-xl text-blue-200 mb-4" style={{ fontSize: '1.25rem', color: '#bfdbfe', lineHeight: '1.6' }}>
+            <p className="text-xl text-gray-300 mb-4" style={{ fontSize: '1.25rem', color: '#d1d5db', lineHeight: '1.6' }}>
               The world's first head-to-head trading platform.
             </p>
-            <p className="text-lg text-blue-300" style={{ fontSize: '1.125rem', color: '#93c5fd', lineHeight: '1.6' }}>
+            <p className="text-lg text-gray-400" style={{ fontSize: '1.125rem', color: '#9ca3af', lineHeight: '1.6' }}>
               Battle other traders in real-time simulated markets — prove your skill, climb leaderboards, and earn rewards.
             </p>
           </motion.div>
@@ -571,48 +647,68 @@ export default function TradeArenaWaitlist() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="max-w-4xl mx-auto mb-16"
+          className="max-w-4xl mx-auto mb-24"
+          style={{ marginBottom: '6rem' }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12" style={{ gap: '4rem' }}>
             {/* Referral Rewards Banner */}
-            <div 
-              className="bg-gradient-to-br from-yellow-500/20 to-orange-500/20 backdrop-blur-xl border border-yellow-400/30 rounded-3xl p-6 shadow-2xl shadow-yellow-500/20"
+            <motion.div 
+              className="bg-gradient-to-br from-gray-800/40 to-gray-700/40 backdrop-blur-xl border border-gray-600/50 rounded-3xl p-8 shadow-2xl shadow-gray-900/20 hover:scale-105 transition-all duration-300"
               style={{
-                background: 'linear-gradient(135deg, rgba(234, 179, 8, 0.15) 0%, rgba(249, 115, 22, 0.15) 100%)',
+                background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.4) 0%, rgba(55, 65, 81, 0.4) 100%)',
                 backdropFilter: 'blur(25px)',
-                border: '1px solid rgba(234, 179, 8, 0.4)',
-                borderRadius: '1.5rem',
-                padding: '1.5rem',
-                boxShadow: '0 25px 50px -12px rgba(234, 179, 8, 0.2)'
+                border: '2px solid rgba(75, 85, 99, 0.5)',
+                borderRadius: '2rem',
+                padding: '2rem',
+                boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.3)'
               }}
+              whileHover={{ scale: 1.02, y: -5 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
-              <h3 className="text-yellow-200 text-xl font-bold mb-4 text-center">Early Bird Rewards</h3>
-              <ul className="text-yellow-100 text-sm space-y-3">
-                <li>• Top 10 referrers get FREE practice subscription ($15/month value)</li>
-                <li>• 10 random signups win FREE practice for 1 month</li>
-                <li>• Share your referral link to compete!</li>
-              </ul>
-            </div>
+              <div className="flex items-center justify-center mb-6">
+                <Gift className="w-6 h-6 text-white mr-3" />
+                <h3 className="text-white text-2xl font-bold">Early Bird Rewards</h3>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+                <div className="flex items-start" style={{ gap: '2rem' }}>
+                  <Crown className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                  <div className="text-gray-200 text-base leading-relaxed">Top 10 referrers get FREE practice subscription ($15/month value)</div>
+                </div>
+                <div className="flex items-start" style={{ gap: '2rem' }}>
+                  <Star className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                  <div className="text-gray-200 text-base leading-relaxed">10 random signups win FREE practice for 1 month</div>
+                </div>
+                <div className="flex items-start" style={{ gap: '2rem' }}>
+                  <Share2 className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                  <div className="text-gray-200 text-base leading-relaxed">Share your referral link to compete!</div>
+                </div>
+              </div>
+            </motion.div>
 
             {/* Personal Referral Form */}
-            <div 
-              className="bg-gradient-to-br from-indigo-500/20 to-purple-500/20 backdrop-blur-xl border border-indigo-400/30 rounded-3xl p-6 shadow-2xl shadow-indigo-500/20"
+            <motion.div 
+              className="bg-gradient-to-br from-gray-800/40 to-gray-700/40 backdrop-blur-xl border border-gray-600/50 rounded-3xl p-8 shadow-2xl shadow-gray-900/20 hover:scale-105 transition-all duration-300"
               style={{
-                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(147, 51, 234, 0.15) 100%)',
+                background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.4) 0%, rgba(55, 65, 81, 0.4) 100%)',
                 backdropFilter: 'blur(25px)',
-                border: '1px solid rgba(99, 102, 241, 0.4)',
-                borderRadius: '1.5rem',
-                padding: '1.5rem',
-                boxShadow: '0 25px 50px -12px rgba(99, 102, 241, 0.2)'
+                border: '2px solid rgba(75, 85, 99, 0.5)',
+                borderRadius: '2rem',
+                padding: '2rem',
+                boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.3)'
               }}
+              whileHover={{ scale: 1.02, y: -5 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
-              <h3 className="text-indigo-200 text-xl font-bold mb-4 text-center">Your Referral Link</h3>
+              <div className="flex items-center justify-center mb-6">
+                <Copy className="w-6 h-6 text-white mr-3" />
+                <h3 className="text-white text-2xl font-bold">Your Referral Link</h3>
+              </div>
               {refCode ? (
-                <div className="space-y-4">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
                   <div className="bg-white/10 rounded-lg p-3">
-                    <p className="text-indigo-200 text-sm mb-2">Share this link to earn rewards:</p>
+                    <p className="text-gray-200 text-sm mb-2">Share this link to earn rewards:</p>
                     <div className="flex items-center gap-2">
-                      <code className="bg-black/20 px-3 py-2 rounded text-indigo-300 font-mono text-sm flex-1 break-all">
+                      <code className="bg-black/20 px-3 py-2 rounded text-gray-300 font-mono text-sm flex-1 break-all">
                         {window.location.origin}?ref={refCode}
                       </code>
                       <button
@@ -622,30 +718,30 @@ export default function TradeArenaWaitlist() {
                           setCopied(true);
                           setTimeout(() => setCopied(false), 2000);
                         }}
-                        className="text-indigo-400 hover:text-indigo-300 transition-colors p-2"
+                        className="text-gray-400 hover:text-gray-300 transition-colors p-2"
                         title="Copy to clipboard"
                       >
                         {copied ? <CheckCircle className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
                       </button>
                     </div>
                   </div>
-                  <p className="text-indigo-100 text-xs text-center">
+                  <p className="text-gray-200 text-xs text-center">
                     Every successful referral moves you up the leaderboard!
                   </p>
                 </div>
               ) : (
                 <div className="text-center">
-                  <p className="text-indigo-200 text-sm mb-4">
+                  <p className="text-gray-200 text-sm mb-4">
                     Sign up above to get your personal referral link
                   </p>
                   <div className="bg-white/10 rounded-lg p-4">
-                    <p className="text-indigo-100 text-xs">
+                    <p className="text-gray-200 text-xs">
                       Your referral code will appear here after you join the waitlist
                     </p>
                   </div>
                 </div>
               )}
-            </div>
+            </motion.div>
           </div>
         </motion.div>
 
@@ -654,178 +750,320 @@ export default function TradeArenaWaitlist() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="grid grid-cols-3 gap-12 mb-16 text-white"
+          className="grid grid-cols-3 gap-16 mb-20 text-white"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '3rem',
-            marginBottom: '4rem',
+            gap: '5rem',
+            marginBottom: '8rem',
             color: 'white'
           }}
         >
           {/* 1. Head-to-Head Matches */}
-          <section 
-            className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-xl border border-blue-400/30 rounded-3xl p-6 shadow-2xl shadow-blue-500/10"
+          <motion.section 
+            className="bg-gradient-to-br from-green-900/30 to-emerald-900/30 backdrop-blur-xl border border-green-500/30 rounded-3xl p-8 shadow-2xl shadow-green-500/10 hover:scale-105 transition-all duration-300"
             style={{
-              background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(147, 51, 234, 0.2) 100%)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(59, 130, 246, 0.3)',
-              borderRadius: '1.5rem',
-              boxShadow: '0 25px 50px -12px rgba(59, 130, 246, 0.1)'
+              background: 'linear-gradient(135deg, rgba(20, 83, 45, 0.3) 0%, rgba(6, 78, 59, 0.3) 100%)',
+              backdropFilter: 'blur(25px)',
+              border: '2px solid rgba(34, 197, 94, 0.3)',
+              borderRadius: '2rem',
+              padding: '2rem',
+              boxShadow: '0 30px 60px -12px rgba(34, 197, 94, 0.1)'
             }}
+            whileHover={{ scale: 1.02, y: -5 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <h3 className="text-white text-4xl font-bold mb-6 text-center">Head-to-Head Matches</h3>
-            <div className="space-y-3">
-              <ul className="text-blue-100 text-sm space-y-3">
-                <li>• Jump into live 1v1 trading battles using real-time market data</li>
-                <li>• Both players start with identical simulated balances</li>
-                <li>• When the timer ends, whoever has the higher P&L wins the match and the prize pool</li>
-                <li>• Every match tests real skill — reaction speed, strategy, and risk management — not luck</li>
-              </ul>
-              <div className="bg-white/5 rounded-lg p-4 mt-4">
-                <p className="text-blue-200 text-sm font-semibold mb-2">Example:</p>
-                <ul className="text-blue-100 text-sm space-y-1">
-                  <li>• Entry: 10 Arena Coins + 0.5 fee</li>
-                  <li>• Winner takes 20 Arena Coins</li>
-                  <li>• Trade Arena keeps 5% service fee to cover data & hosting</li>
-                </ul>
+            <div className="flex items-center justify-center mb-6">
+              <Target className="w-8 h-8 text-white mr-3" />
+              <h3 className="text-white text-3xl font-bold">Head-to-Head Matches</h3>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Activity className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Jump into live 1v1 trading battles using real-time market data</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <DollarSign className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Both players start with identical simulated balances</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Clock className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">When the timer ends, whoever has the higher P&L wins the match and the prize pool</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Shield className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Every match tests real skill — reaction speed, strategy, and risk management — not luck</div>
+              </div>
+              <div className="bg-white/10 rounded-lg p-4 mt-6">
+                <p className="text-white text-sm font-semibold mb-3">Example:</p>
+                <div className="text-gray-200 text-sm space-y-2">
+                  <div>Entry: 10 Arena Coins + 0.5 fee</div>
+                  <div>Winner takes 20 Arena Coins</div>
+                  <div>Trade Arena keeps 5% service fee to cover data & hosting</div>
+                </div>
               </div>
             </div>
-            </section>
+          </motion.section>
 
           {/* 2. Tournaments */}
-          <section 
-            className="bg-gradient-to-br from-sky-500/20 to-cyan-500/20 backdrop-blur-xl border border-sky-400/30 rounded-3xl p-6 shadow-2xl shadow-sky-500/10"
+          <motion.section 
+            className="bg-gradient-to-br from-red-900/30 to-orange-900/30 backdrop-blur-xl border border-red-500/30 rounded-3xl p-8 shadow-2xl shadow-red-500/10 hover:scale-105 transition-all duration-300"
             style={{
-              background: 'linear-gradient(135deg, rgba(14, 165, 233, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(14, 165, 233, 0.3)',
-              borderRadius: '1.5rem',
-              boxShadow: '0 25px 50px -12px rgba(14, 165, 233, 0.1)'
+              background: 'linear-gradient(135deg, rgba(127, 29, 29, 0.3) 0%, rgba(154, 52, 18, 0.3) 100%)',
+              backdropFilter: 'blur(25px)',
+              border: '2px solid rgba(239, 68, 68, 0.3)',
+              borderRadius: '2rem',
+              padding: '2rem',
+              boxShadow: '0 30px 60px -12px rgba(239, 68, 68, 0.1)'
             }}
+            whileHover={{ scale: 1.02, y: -5 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <h3 className="text-white text-4xl font-bold mb-6 text-center">Tournaments</h3>
-            <div>
-              <ul className="text-sky-100 text-sm space-y-3">
-                <li>• Compete in bracket-style events with multiple rounds</li>
-                <li>• Advance by beating opponents, climb the rankings, and win larger prize pools</li>
-                <li>• Tournaments combine consistency, timing, and nerves — only the most skilled traders make it to the finals</li>
-              </ul>
+            <div className="flex items-center justify-center mb-6">
+              <Trophy className="w-8 h-8 text-white mr-3" />
+              <h3 className="text-white text-3xl font-bold">Tournaments</h3>
             </div>
-          </section>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Users2 className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Compete in bracket-style events with multiple rounds</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <TrendingUp className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Advance by beating opponents, climb the rankings, and win larger prize pools</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Crown className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Tournaments combine consistency, timing, and nerves — only the most skilled traders make it to the finals</div>
+              </div>
+            </div>
+          </motion.section>
 
           {/* 3. Practice Mode */}
-          <section 
-            className="bg-gradient-to-br from-emerald-500/20 to-green-500/20 backdrop-blur-xl border border-emerald-400/30 rounded-3xl p-6 shadow-2xl shadow-emerald-500/10"
+          <motion.section 
+            className="bg-gradient-to-br from-yellow-900/30 to-amber-900/30 backdrop-blur-xl border border-yellow-500/30 rounded-3xl p-8 shadow-2xl shadow-yellow-500/10 hover:scale-105 transition-all duration-300"
             style={{
-              background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(34, 197, 94, 0.2) 100%)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(16, 185, 129, 0.3)',
-              borderRadius: '1.5rem',
-              boxShadow: '0 25px 50px -12px rgba(16, 185, 129, 0.1)'
+              background: 'linear-gradient(135deg, rgba(113, 63, 18, 0.3) 0%, rgba(120, 53, 15, 0.3) 100%)',
+              backdropFilter: 'blur(25px)',
+              border: '2px solid rgba(234, 179, 8, 0.3)',
+              borderRadius: '2rem',
+              padding: '2rem',
+              boxShadow: '0 30px 60px -12px rgba(234, 179, 8, 0.1)'
             }}
+            whileHover={{ scale: 1.02, y: -5 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <h3 className="text-white text-4xl font-bold mb-6 text-center">Practice Mode (Subscription)</h3>
-            <div>
-              <ul className="text-emerald-100 text-sm space-y-3">
-                <li>• Unlock Practice Mode for $15/month to sharpen your edge</li>
-                <li>• Unlimited simulated trading with live market data</li>
-                <li>• Personal performance tracking</li>
-                <li>• Access to daily freeroll competitions (no-entry-fee events)</li>
-                <li>• Eligibility for weekly Practice Leaderboards that award real Arena Coins or free tournament entries</li>
-                <li>• Top performers in Practice Mode can earn while they learn — leaderboard prizes convert into entry credits for ranked matches</li>
-              </ul>
+            <div className="flex items-center justify-center mb-6">
+              <Zap className="w-8 h-8 text-white mr-3" />
+              <h3 className="text-white text-3xl font-bold">Practice Mode</h3>
             </div>
-          </section>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <DollarSign className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Unlock Practice Mode for $15/month to sharpen your edge</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Activity className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Unlimited simulated trading with live market data</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <BarChart3 className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Personal performance tracking</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Gift className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Access to daily freeroll competitions (no-entry-fee events)</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Trophy className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Eligibility for weekly Practice Leaderboards that award real Arena Coins or free tournament entries</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Award className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Top performers in Practice Mode can earn while they learn — leaderboard prizes convert into entry credits for ranked matches</div>
+              </div>
+            </div>
+          </motion.section>
 
           {/* 4. Ranked Leaderboards */}
-          <section 
-            className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-xl border border-purple-400/30 rounded-3xl p-6 shadow-2xl shadow-purple-500/10"
+          <motion.section 
+            className="bg-gradient-to-br from-blue-900/30 to-indigo-900/30 backdrop-blur-xl border border-blue-500/30 rounded-3xl p-8 shadow-2xl shadow-blue-500/10 hover:scale-105 transition-all duration-300"
             style={{
-              background: 'linear-gradient(135deg, rgba(147, 51, 234, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(147, 51, 234, 0.3)',
-              borderRadius: '1.5rem',
-              boxShadow: '0 25px 50px -12px rgba(147, 51, 234, 0.1)'
+              background: 'linear-gradient(135deg, rgba(30, 58, 138, 0.3) 0%, rgba(55, 48, 163, 0.3) 100%)',
+              backdropFilter: 'blur(25px)',
+              border: '2px solid rgba(59, 130, 246, 0.3)',
+              borderRadius: '2rem',
+              padding: '2rem',
+              boxShadow: '0 30px 60px -12px rgba(59, 130, 246, 0.1)'
             }}
+            whileHover={{ scale: 1.02, y: -5 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <h3 className="text-white text-4xl font-bold mb-6 text-center">Ranked Leaderboards</h3>
-            <div>
-              <ul className="text-purple-100 text-sm space-y-3">
-                <li>• All competitive activity feeds into the Ranked Leaderboard — your public trading résumé</li>
-                <li>• Tracks wins and win rate</li>
-                <li>• Tracks total profit across matches</li>
-                <li>• Tracks streaks and consistency metrics</li>
-                <li>• Rank up through divisions by winning matches and tournaments</li>
-                <li>• The higher your rank, the bigger the rewards, and the earlier your access to exclusive events and merch drops</li>
-              </ul>
+            <div className="flex items-center justify-center mb-6">
+              <BarChart3 className="w-8 h-8 text-white mr-3" />
+              <h3 className="text-white text-3xl font-bold">Ranked Leaderboards</h3>
             </div>
-          </section>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Users className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">All competitive activity feeds into the Ranked Leaderboard — your public trading résumé</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Trophy className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Tracks wins and win rate</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <DollarSign className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Tracks total profit across matches</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <TrendingUp className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Tracks streaks and consistency metrics</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Crown className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Rank up through divisions by winning matches and tournaments</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Gift className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">The higher your rank, the bigger the rewards, and the earlier your access to exclusive events and merch drops</div>
+              </div>
+            </div>
+          </motion.section>
 
           {/* 5. Rewards & Progression */}
-          <section 
-            className="bg-gradient-to-br from-yellow-500/20 to-orange-500/20 backdrop-blur-xl border border-yellow-400/30 rounded-3xl p-6 shadow-2xl shadow-yellow-500/10"
+          <motion.section 
+            className="bg-gradient-to-br from-purple-900/30 to-pink-900/30 backdrop-blur-xl border border-purple-500/30 rounded-3xl p-8 shadow-2xl shadow-purple-500/10 hover:scale-105 transition-all duration-300"
             style={{
-              background: 'linear-gradient(135deg, rgba(234, 179, 8, 0.2) 0%, rgba(249, 115, 22, 0.2) 100%)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(234, 179, 8, 0.3)',
-              borderRadius: '1.5rem',
-              boxShadow: '0 25px 50px -12px rgba(234, 179, 8, 0.1)'
+              background: 'linear-gradient(135deg, rgba(88, 28, 135, 0.3) 0%, rgba(157, 23, 77, 0.3) 100%)',
+              backdropFilter: 'blur(25px)',
+              border: '2px solid rgba(147, 51, 234, 0.3)',
+              borderRadius: '2rem',
+              padding: '2rem',
+              boxShadow: '0 30px 60px -12px rgba(147, 51, 234, 0.1)'
             }}
+            whileHover={{ scale: 1.02, y: -5 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <h3 className="text-white text-4xl font-bold mb-6 text-center">Rewards & Progression</h3>
-            <div>
-              <ul className="text-yellow-100 text-sm space-y-3">
-                <li>• Trade Arena rewards skill, consistency, and community</li>
-                <li>• Weekly and seasonal prizes for top performers</li>
-                <li>• Referral bonuses — invite friends, climb the queue, and earn Arena Coins</li>
-                <li>• Badges and tiers that showcase your achievements</li>
-                <li>• Early access perks for waitlist and Practice members</li>
-              </ul>
+            <div className="flex items-center justify-center mb-6">
+              <Gift className="w-8 h-8 text-white mr-3" />
+              <h3 className="text-white text-3xl font-bold">Rewards & Progression</h3>
             </div>
-          </section>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Award className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Trade Arena rewards skill, consistency, and community</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Trophy className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Weekly and seasonal prizes for top performers</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Users2 className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Referral bonuses — invite friends, climb the queue, and earn Arena Coins</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Medal className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Badges and tiers that showcase your achievements</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Star className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Early access perks for waitlist and Practice members</div>
+              </div>
+            </div>
+          </motion.section>
 
           {/* 6. Fair, Transparent, Skill-Based */}
-          <section 
-            className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 backdrop-blur-xl border border-cyan-400/30 rounded-3xl p-6 shadow-2xl shadow-cyan-500/10"
+          <motion.section 
+            className="bg-gradient-to-br from-cyan-900/30 to-teal-900/30 backdrop-blur-xl border border-cyan-500/30 rounded-3xl p-8 shadow-2xl shadow-cyan-500/10 hover:scale-105 transition-all duration-300"
             style={{
-              background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(6, 182, 212, 0.3)',
-              borderRadius: '1.5rem',
-              boxShadow: '0 25px 50px -12px rgba(6, 182, 212, 0.1)'
+              background: 'linear-gradient(135deg, rgba(21, 94, 117, 0.3) 0%, rgba(19, 78, 74, 0.3) 100%)',
+              backdropFilter: 'blur(25px)',
+              border: '2px solid rgba(6, 182, 212, 0.3)',
+              borderRadius: '2rem',
+              padding: '2rem',
+              boxShadow: '0 30px 60px -12px rgba(6, 182, 212, 0.1)'
             }}
+            whileHover={{ scale: 1.02, y: -5 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <h3 className="text-white text-4xl font-bold mb-6 text-center">Fair, Transparent, Skill-Based</h3>
-            <div>
-              <ul className="text-cyan-100 text-sm space-y-3">
-                <li>• All matches use simulated balances with live CME-licensed data — no hidden leverage, no broker execution</li>
-                <li>• Every trade and result is logged for transparency</li>
-                <li>• Outcomes are entirely skill-driven, not chance-based — like chess or poker with perfect records</li>
-              </ul>
+            <div className="flex items-center justify-center mb-6">
+              <Shield className="w-8 h-8 text-white mr-3" />
+              <h3 className="text-white text-3xl font-bold">Fair, Transparent, Skill-Based</h3>
             </div>
-          </section>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Activity className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">All matches use simulated balances with live CME-licensed data — no hidden leverage, no broker execution</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <BarChart3 className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Every trade and result is logged for transparency</div>
+              </div>
+              <div className="flex items-start" style={{ gap: '2rem' }}>
+                <Target className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                <div className="text-gray-200 text-base leading-relaxed">Outcomes are entirely skill-driven, not chance-based — like chess or poker with perfect records</div>
+              </div>
+            </div>
+          </motion.section>
 
           {/* Socials */}
-          <section 
-            className="bg-gradient-to-br from-teal-500/20 to-cyan-500/20 backdrop-blur-xl border border-teal-400/30 rounded-3xl p-6 shadow-2xl shadow-teal-500/10"
+          <motion.section 
+            className="bg-gradient-to-br from-slate-900/30 to-gray-900/30 backdrop-blur-xl border border-slate-500/30 rounded-3xl p-8 shadow-2xl shadow-slate-500/10 hover:scale-105 transition-all duration-300"
             style={{
-              background: 'linear-gradient(135deg, rgba(20, 184, 166, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(20, 184, 166, 0.3)',
-              borderRadius: '1.5rem',
-              boxShadow: '0 25px 50px -12px rgba(20, 184, 166, 0.1)'
+              background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.3) 0%, rgba(17, 24, 39, 0.3) 100%)',
+              backdropFilter: 'blur(25px)',
+              border: '2px solid rgba(100, 116, 139, 0.3)',
+              borderRadius: '2rem',
+              padding: '2rem',
+              boxShadow: '0 30px 60px -12px rgba(100, 116, 139, 0.1)'
             }}
+            whileHover={{ scale: 1.02, y: -5 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <h3 className="text-white text-4xl font-bold mb-6 text-center">Socials</h3>
-            <div>
-              <ul className="text-teal-100 text-sm space-y-3">
-                <li>• Instagram: <a className="text-teal-300 hover:text-teal-200" href="#" target="_blank" rel="noreferrer">@tradearena</a></li>
-                <li>• X (Twitter): <a className="text-teal-300 hover:text-teal-200" href="#" target="_blank" rel="noreferrer">@TradeArenaApp</a></li>
-                <li>• Discord: <a className="text-teal-300 hover:text-teal-200" href="#" target="_blank" rel="noreferrer">Join the early testers</a></li>
-              </ul>
+            <div className="flex items-center justify-center mb-6">
+              <MessageSquare className="w-8 h-8 text-white mr-3" />
+              <h3 className="text-white text-3xl font-bold">Socials</h3>
             </div>
-          </section>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+              <div className="flex items-center space-x-3">
+                <div className="w-5 h-5 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full flex-shrink-0"></div>
+                <div className="text-gray-200 text-base leading-relaxed">Instagram: </div>
+                <span 
+                  className="text-white hover:text-gray-300 underline text-base cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    const newWindow = window.open('https://www.instagram.com/tradearenaweb/', '_blank', 'noopener,noreferrer');
+                    if (!newWindow) {
+                      window.location.href = 'https://www.instagram.com/tradearenaweb/';
+                    }
+                  }}
+                  style={{ textDecoration: 'underline' }}
+                >
+                  @tradearenaweb
+                </span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="w-5 h-5 bg-indigo-500 rounded-full flex-shrink-0"></div>
+                <div className="text-gray-200 text-base leading-relaxed">Discord: </div>
+                <span 
+                  className="text-white hover:text-gray-300 underline text-base cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    const newWindow = window.open('https://discord.gg/vzSBMFgK', '_blank', 'noopener,noreferrer');
+                    if (!newWindow) {
+                      window.location.href = 'https://discord.gg/vzSBMFgK';
+                    }
+                  }}
+                  style={{ textDecoration: 'underline' }}
+                >
+                  Join the early testers
+                </span>
+              </div>
+            </div>
+          </motion.section>
         </motion.div>
 
         {/* Suggestions Box */}
