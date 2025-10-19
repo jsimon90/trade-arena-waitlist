@@ -184,85 +184,35 @@ export default function TradeArenaWaitlist() {
         color: 'white'
       }}
     >
-      {/* Trading Terminal Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Market Data Overlay */}
-        <div className="absolute top-10 left-10 text-green-400 text-xs font-mono opacity-20">
-          <div>BTC/USD: $43,250.00 +2.45%</div>
-          <div>ETH/USD: $2,680.00 +1.23%</div>
-          <div>SPY: $445.67 +0.89%</div>
-        </div>
-        <div className="absolute top-10 right-10 text-red-400 text-xs font-mono opacity-20">
-          <div>NASDAQ: 14,532.45 -0.34%</div>
-          <div>DOW: 35,123.78 -0.12%</div>
-          <div>VIX: 18.45 +1.23%</div>
-        </div>
-        
+      {/* Trading Terminal Background - CLEAN */}
+      <div style={{position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1, pointerEvents: 'none'}}>
         {/* Trading Grid Pattern */}
-        <div className="absolute inset-0 opacity-8">
-          <svg width="100%" height="100%" className="absolute inset-0">
-            <defs>
-              <pattern id="tradingGrid" width="60" height="60" patternUnits="userSpaceOnUse">
-                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#00ff88" strokeWidth="0.5" opacity="0.3"/>
-                <circle cx="30" cy="30" r="1" fill="#00ff88" opacity="0.2"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#tradingGrid)" />
-          </svg>
-        </div>
+        <svg width="100%" height="100%" style={{position: 'absolute', top: 0, left: 0, opacity: 0.1}}>
+          <defs>
+            <pattern id="tradingGrid" width="60" height="60" patternUnits="userSpaceOnUse">
+              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#00ff88" strokeWidth="1"/>
+              <circle cx="30" cy="30" r="1" fill="#00ff88"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#tradingGrid)" />
+        </svg>
         
-        {/* Animated Market Indicators */}
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-green-500/8 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-1/2 -left-40 w-96 h-96 bg-red-500/8 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-yellow-500/6 rounded-full blur-3xl animate-pulse delay-2000"></div>
-        {/* Trading Charts and Market Data */}
-        <div className="absolute top-20 left-10 w-32 h-20 opacity-15">
-          <svg viewBox="0 0 100 50" className="w-full h-full">
+        {/* Candlestick Charts - Subtle */}
+        <div style={{position: 'absolute', top: '20%', left: '5%', width: '150px', height: '80px', opacity: 0.3}}>
+          <svg width="100%" height="100%" viewBox="0 0 100 50">
             <polyline points="0,40 20,30 40,35 60,20 80,25 100,15" stroke="#00ff88" strokeWidth="2" fill="none"/>
-            <polyline points="0,45 15,35 30,40 45,25 60,30 75,20 90,25 100,20" stroke="#00ff88" strokeWidth="1" fill="none" opacity="0.6"/>
           </svg>
         </div>
-        <div className="absolute top-40 right-20 w-40 h-16 opacity-15">
-          <svg viewBox="0 0 100 50" className="w-full h-full">
+        
+        <div style={{position: 'absolute', top: '60%', right: '8%', width: '120px', height: '60px', opacity: 0.3}}>
+          <svg width="100%" height="100%" viewBox="0 0 100 50">
             <polyline points="0,35 25,20 50,30 75,10 100,25" stroke="#ff4444" strokeWidth="2" fill="none"/>
-            <polyline points="0,40 20,25 40,35 60,15 80,30 100,20" stroke="#ff4444" strokeWidth="1" fill="none" opacity="0.6"/>
           </svg>
         </div>
-        <div className="absolute bottom-20 left-1/4 w-48 h-12 opacity-12">
-          <svg viewBox="0 0 100 50" className="w-full h-full">
+        
+        <div style={{position: 'absolute', bottom: '25%', left: '15%', width: '100px', height: '50px', opacity: 0.3}}>
+          <svg width="100%" height="100%" viewBox="0 0 100 50">
             <polyline points="0,30 20,25 40,35 60,20 80,30 100,25" stroke="#ffaa00" strokeWidth="2" fill="none"/>
-            <polyline points="0,35 15,30 30,40 45,25 60,35 75,30 90,40 100,35" stroke="#ffaa00" strokeWidth="1" fill="none" opacity="0.6"/>
-          </svg>
-        </div>
-        {/* Trading Panels */}
-        <div className="absolute bottom-10 left-10 w-48 h-32 bg-black/20 border border-green-500/20 rounded-lg p-2 opacity-15">
-          <div className="text-green-400 text-xs font-mono mb-1">ORDER BOOK</div>
-          <div className="text-red-400 text-xs font-mono">43,250.00 | 1.2 BTC</div>
-          <div className="text-red-400 text-xs font-mono">43,249.50 | 0.8 BTC</div>
-          <div className="text-red-400 text-xs font-mono">43,249.00 | 2.1 BTC</div>
-          <div className="text-gray-400 text-xs font-mono">--- SPREAD ---</div>
-          <div className="text-green-400 text-xs font-mono">43,248.50 | 1.5 BTC</div>
-          <div className="text-green-400 text-xs font-mono">43,248.00 | 0.9 BTC</div>
-        </div>
-        
-        <div className="absolute bottom-10 right-10 w-40 h-24 bg-black/20 border border-blue-500/20 rounded-lg p-2 opacity-15">
-          <div className="text-blue-400 text-xs font-mono mb-1">POSITIONS</div>
-          <div className="text-green-400 text-xs font-mono">+$1,250.00</div>
-          <div className="text-red-400 text-xs font-mono">-$340.00</div>
-          <div className="text-yellow-400 text-xs font-mono">+$910.00</div>
-        </div>
-        
-        {/* Trading Terminal Lines */}
-        <div className="absolute top-0 left-0 w-full h-full opacity-5">
-          <svg width="100%" height="100%" className="absolute inset-0">
-            <defs>
-              <pattern id="terminalGrid" width="80" height="80" patternUnits="userSpaceOnUse">
-                <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#00ff88" strokeWidth="0.3"/>
-                <path d="M 40 0 L 40 80" fill="none" stroke="#00ff88" strokeWidth="0.2"/>
-                <path d="M 0 40 L 80 40" fill="none" stroke="#00ff88" strokeWidth="0.2"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#terminalGrid)" />
           </svg>
         </div>
       </div>
@@ -281,15 +231,16 @@ export default function TradeArenaWaitlist() {
       ></div>
       
       <div 
-        className="relative z-10 container mx-auto px-4 py-16"
+        className="relative z-5 container mx-auto px-4 py-16"
         style={{
           position: 'relative',
-          zIndex: 10,
+          zIndex: 2,
           maxWidth: '1200px',
           margin: '0 auto',
           padding: '4rem 1rem'
         }}
       >
+        
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -761,14 +712,14 @@ export default function TradeArenaWaitlist() {
         >
           {/* 1. Head-to-Head Matches */}
           <motion.section 
-            className="bg-gradient-to-br from-green-900/30 to-emerald-900/30 backdrop-blur-xl border border-green-500/30 rounded-3xl p-8 shadow-2xl shadow-green-500/10 hover:scale-105 transition-all duration-300"
+            className="bg-gradient-to-br from-gray-800/40 to-gray-700/40 backdrop-blur-xl border border-gray-600/50 rounded-3xl p-8 shadow-2xl shadow-gray-900/20 hover:scale-105 transition-all duration-300"
             style={{
-              background: 'linear-gradient(135deg, rgba(20, 83, 45, 0.3) 0%, rgba(6, 78, 59, 0.3) 100%)',
+              background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.4) 0%, rgba(55, 65, 81, 0.4) 100%)',
               backdropFilter: 'blur(25px)',
-              border: '2px solid rgba(34, 197, 94, 0.3)',
+              border: '2px solid rgba(75, 85, 99, 0.5)',
               borderRadius: '2rem',
               padding: '2rem',
-              boxShadow: '0 30px 60px -12px rgba(34, 197, 94, 0.1)'
+              boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.3)'
             }}
             whileHover={{ scale: 1.02, y: -5 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -807,14 +758,14 @@ export default function TradeArenaWaitlist() {
 
           {/* 2. Tournaments */}
           <motion.section 
-            className="bg-gradient-to-br from-red-900/30 to-orange-900/30 backdrop-blur-xl border border-red-500/30 rounded-3xl p-8 shadow-2xl shadow-red-500/10 hover:scale-105 transition-all duration-300"
+            className="bg-gradient-to-br from-gray-800/40 to-gray-700/40 backdrop-blur-xl border border-gray-600/50 rounded-3xl p-8 shadow-2xl shadow-gray-900/20 hover:scale-105 transition-all duration-300"
             style={{
-              background: 'linear-gradient(135deg, rgba(127, 29, 29, 0.3) 0%, rgba(154, 52, 18, 0.3) 100%)',
+              background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.4) 0%, rgba(55, 65, 81, 0.4) 100%)',
               backdropFilter: 'blur(25px)',
-              border: '2px solid rgba(239, 68, 68, 0.3)',
+              border: '2px solid rgba(75, 85, 99, 0.5)',
               borderRadius: '2rem',
               padding: '2rem',
-              boxShadow: '0 30px 60px -12px rgba(239, 68, 68, 0.1)'
+              boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.3)'
             }}
             whileHover={{ scale: 1.02, y: -5 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -841,14 +792,14 @@ export default function TradeArenaWaitlist() {
 
           {/* 3. Practice Mode */}
           <motion.section 
-            className="bg-gradient-to-br from-yellow-900/30 to-amber-900/30 backdrop-blur-xl border border-yellow-500/30 rounded-3xl p-8 shadow-2xl shadow-yellow-500/10 hover:scale-105 transition-all duration-300"
+            className="bg-gradient-to-br from-gray-800/40 to-gray-700/40 backdrop-blur-xl border border-gray-600/50 rounded-3xl p-8 shadow-2xl shadow-gray-900/20 hover:scale-105 transition-all duration-300"
             style={{
-              background: 'linear-gradient(135deg, rgba(113, 63, 18, 0.3) 0%, rgba(120, 53, 15, 0.3) 100%)',
+              background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.4) 0%, rgba(55, 65, 81, 0.4) 100%)',
               backdropFilter: 'blur(25px)',
-              border: '2px solid rgba(234, 179, 8, 0.3)',
+              border: '2px solid rgba(75, 85, 99, 0.5)',
               borderRadius: '2rem',
               padding: '2rem',
-              boxShadow: '0 30px 60px -12px rgba(234, 179, 8, 0.1)'
+              boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.3)'
             }}
             whileHover={{ scale: 1.02, y: -5 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -887,14 +838,14 @@ export default function TradeArenaWaitlist() {
 
           {/* 4. Ranked Leaderboards */}
           <motion.section 
-            className="bg-gradient-to-br from-blue-900/30 to-indigo-900/30 backdrop-blur-xl border border-blue-500/30 rounded-3xl p-8 shadow-2xl shadow-blue-500/10 hover:scale-105 transition-all duration-300"
+            className="bg-gradient-to-br from-gray-800/40 to-gray-700/40 backdrop-blur-xl border border-gray-600/50 rounded-3xl p-8 shadow-2xl shadow-gray-900/20 hover:scale-105 transition-all duration-300"
             style={{
-              background: 'linear-gradient(135deg, rgba(30, 58, 138, 0.3) 0%, rgba(55, 48, 163, 0.3) 100%)',
+              background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.4) 0%, rgba(55, 65, 81, 0.4) 100%)',
               backdropFilter: 'blur(25px)',
-              border: '2px solid rgba(59, 130, 246, 0.3)',
+              border: '2px solid rgba(75, 85, 99, 0.5)',
               borderRadius: '2rem',
               padding: '2rem',
-              boxShadow: '0 30px 60px -12px rgba(59, 130, 246, 0.1)'
+              boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.3)'
             }}
             whileHover={{ scale: 1.02, y: -5 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -933,14 +884,14 @@ export default function TradeArenaWaitlist() {
 
           {/* 5. Rewards & Progression */}
           <motion.section 
-            className="bg-gradient-to-br from-purple-900/30 to-pink-900/30 backdrop-blur-xl border border-purple-500/30 rounded-3xl p-8 shadow-2xl shadow-purple-500/10 hover:scale-105 transition-all duration-300"
+            className="bg-gradient-to-br from-gray-800/40 to-gray-700/40 backdrop-blur-xl border border-gray-600/50 rounded-3xl p-8 shadow-2xl shadow-gray-900/20 hover:scale-105 transition-all duration-300"
             style={{
-              background: 'linear-gradient(135deg, rgba(88, 28, 135, 0.3) 0%, rgba(157, 23, 77, 0.3) 100%)',
+              background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.4) 0%, rgba(55, 65, 81, 0.4) 100%)',
               backdropFilter: 'blur(25px)',
-              border: '2px solid rgba(147, 51, 234, 0.3)',
+              border: '2px solid rgba(75, 85, 99, 0.5)',
               borderRadius: '2rem',
               padding: '2rem',
-              boxShadow: '0 30px 60px -12px rgba(147, 51, 234, 0.1)'
+              boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.3)'
             }}
             whileHover={{ scale: 1.02, y: -5 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -975,14 +926,14 @@ export default function TradeArenaWaitlist() {
 
           {/* 6. Fair, Transparent, Skill-Based */}
           <motion.section 
-            className="bg-gradient-to-br from-cyan-900/30 to-teal-900/30 backdrop-blur-xl border border-cyan-500/30 rounded-3xl p-8 shadow-2xl shadow-cyan-500/10 hover:scale-105 transition-all duration-300"
+            className="bg-gradient-to-br from-gray-800/40 to-gray-700/40 backdrop-blur-xl border border-gray-600/50 rounded-3xl p-8 shadow-2xl shadow-gray-900/20 hover:scale-105 transition-all duration-300"
             style={{
-              background: 'linear-gradient(135deg, rgba(21, 94, 117, 0.3) 0%, rgba(19, 78, 74, 0.3) 100%)',
+              background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.4) 0%, rgba(55, 65, 81, 0.4) 100%)',
               backdropFilter: 'blur(25px)',
-              border: '2px solid rgba(6, 182, 212, 0.3)',
+              border: '2px solid rgba(75, 85, 99, 0.5)',
               borderRadius: '2rem',
               padding: '2rem',
-              boxShadow: '0 30px 60px -12px rgba(6, 182, 212, 0.1)'
+              boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.3)'
             }}
             whileHover={{ scale: 1.02, y: -5 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -1009,14 +960,14 @@ export default function TradeArenaWaitlist() {
 
           {/* Socials */}
           <motion.section 
-            className="bg-gradient-to-br from-slate-900/30 to-gray-900/30 backdrop-blur-xl border border-slate-500/30 rounded-3xl p-8 shadow-2xl shadow-slate-500/10 hover:scale-105 transition-all duration-300"
+            className="bg-gradient-to-br from-gray-800/40 to-gray-700/40 backdrop-blur-xl border border-gray-600/50 rounded-3xl p-8 shadow-2xl shadow-gray-900/20 hover:scale-105 transition-all duration-300"
             style={{
-              background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.3) 0%, rgba(17, 24, 39, 0.3) 100%)',
+              background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.4) 0%, rgba(55, 65, 81, 0.4) 100%)',
               backdropFilter: 'blur(25px)',
-              border: '2px solid rgba(100, 116, 139, 0.3)',
+              border: '2px solid rgba(75, 85, 99, 0.5)',
               borderRadius: '2rem',
               padding: '2rem',
-              boxShadow: '0 30px 60px -12px rgba(100, 116, 139, 0.1)'
+              boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.3)'
             }}
             whileHover={{ scale: 1.02, y: -5 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
